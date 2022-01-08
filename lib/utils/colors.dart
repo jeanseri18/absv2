@@ -1,8 +1,9 @@
 import 'dart:ui';
 
 class CustomColor {
-  static const Color primaryColor = Color(0xFF1B2C3B);
-  static Color secondaryColor = Color(0xFF1c262f);
+  static const Color primaryColor = Color(0xFF000000);
+  // Color(0xFF1B2C3B);
+  static Color secondaryColor = Color(0xFF000000);
   //0xFFFF6F00
   static Color accentColor = Color(0xFFFFC107);
   static Color yellowLightColor = Color(0xFFFDF5E6);
