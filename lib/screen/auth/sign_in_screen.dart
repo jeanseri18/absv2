@@ -64,6 +64,7 @@ class _SignInScreenState extends State<SignInScreen> {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
+      Navigator.pop(context);
 
       Navigator.push(
         context,

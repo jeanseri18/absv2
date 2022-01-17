@@ -1,8 +1,8 @@
 class Dimensions {
-  static double defaultTextSize = 14.00;
+  static double defaultTextSize = 11.00;
   static double smallTextSize = 12.00;
   static double extraSmallTextSize = 10.00;
-  static double largeTextSize = 16.00;
+  static double largeTextSize = 11.00;
   static double extraLargeTextSize = 20.00;
 
   static const double defaultPaddingSize = 30.00;

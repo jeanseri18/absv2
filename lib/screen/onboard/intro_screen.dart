@@ -108,7 +108,7 @@ class _IntroScreenState extends State<IntroScreen> {
                         Strings.signIn.toUpperCase(),
                         style: TextStyle(
                           fontSize: Dimensions.largeTextSize,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                         textAlign: TextAlign.center,
                       ),
