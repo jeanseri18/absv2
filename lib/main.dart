@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Abidjan streaming',
-     
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primaryColor: CustomColor.primaryColor, fontFamily: 'Ubuntu'),

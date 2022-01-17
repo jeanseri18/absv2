@@ -5,7 +5,8 @@ class CustomColor {
   // Color(0xFF1B2C3B);
   static Color secondaryColor = Color(0xFF000000);
   //0xFFFF6F00
-  static Color accentColor = Color(0xFFFFC107);
+  static Color accentColor = Color(0xFFFDF5E6);
+  //Color(0xFFFFC107);
   static Color yellowLightColor = Color(0xFFFDF5E6);
   static Color redDarkColor = Color(0xFF2B0100);
   static Color redColor = Color(0xFFD90404);

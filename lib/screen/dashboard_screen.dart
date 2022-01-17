@@ -21,7 +21,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColor.primaryColor,
+      backgroundColor: Colors.black,
       bottomNavigationBar: BottomBar(
         selectedIndex: currentPage,
         onTap: (int index) {
@@ -33,19 +33,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
           BottomBarItem(
             icon: Icon(Icons.home),
             title: Text('Acceuil'),
-            activeColor: Colors.blue,
+            activeColor: CustomColor.yellowLightColor,
           ),
           BottomBarItem(
             icon: Icon(Icons.favorite),
             title: Text('Favories'),
-            activeColor: Colors.red,
-            darkActiveColor: Colors.red.shade400, // Optional
+            activeColor: CustomColor.yellowLightColor,
+            darkActiveColor: CustomColor.yellowLightColor, // Optional
           ),
           BottomBarItem(
             icon: Icon(Icons.person),
             title: Text('Compte'),
-            activeColor: Colors.greenAccent.shade700,
-            darkActiveColor: Colors.greenAccent.shade400, // Optional
+            activeColor: CustomColor.yellowLightColor,
+            darkActiveColor: CustomColor.yellowLightColor, // Optional
           ),
           /*  BottomBarItem(
             icon: Icon(Icons.settings),
@@ -55,6 +55,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ],
       ),
       body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
         controller: _pageController,
         children: [
           goToScreen(currentPage),
