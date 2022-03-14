@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 
 class BackWidget extends StatefulWidget {
   final String name;
+  final String image;
 
-  const BackWidget({Key? key, required this.name}) : super(key: key);
+  const BackWidget({Key? key, required this.name, required this.image})
+      : super(key: key);
 
   @override
   _BackWidgetState createState() => _BackWidgetState();
@@ -39,15 +41,20 @@ class _BackWidgetState extends State<BackWidget> {
                 Navigator.of(context).pop();
               },
             ),
-            SizedBox(
+            /*   SizedBox(
               width: Dimensions.widthSize,
-            ),
+            ),*/
+            Spacer(),
             Text(
               widget.name.toUpperCase(),
               style: TextStyle(
                   fontSize: Dimensions.extraLargeTextSize,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
+            ),
+            Image.asset(
+              widget.image,
+              width: 150,
             )
           ],
         ),

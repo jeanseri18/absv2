@@ -27,7 +27,10 @@ class _IntroScreenState extends State<IntroScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Image.asset('assets/images/popcorn.png'),
+              Image.asset(
+                'assets/images/playstore.png',
+                width: 150,
+              ),
               SizedBox(
                 height: Dimensions.heightSize * 2,
               ),
@@ -76,9 +79,9 @@ class _IntroScreenState extends State<IntroScreen> {
                       child: Text(
                         Strings.createAnAccount.toUpperCase(),
                         style: TextStyle(
-                          fontSize: Dimensions.largeTextSize,
-                          color: Colors.black,
-                        ),
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -107,9 +110,9 @@ class _IntroScreenState extends State<IntroScreen> {
                       child: Text(
                         Strings.signIn.toUpperCase(),
                         style: TextStyle(
-                          fontSize: Dimensions.largeTextSize,
-                          color: Colors.white,
-                        ),
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
                     ),

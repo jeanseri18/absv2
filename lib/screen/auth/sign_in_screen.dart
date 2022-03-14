@@ -6,6 +6,7 @@ import 'package:abidjanstreaming/utils/dimensions.dart';
 import 'package:abidjanstreaming/utils/strings.dart';
 import 'package:abidjanstreaming/widgets/back_widget.dart';
 import 'package:abidjanstreaming/widgets/bg_image_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:convert';
@@ -52,7 +53,7 @@ class _SignInScreenState extends State<SignInScreen> {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString('email', emailController.text);
       /* FlutterToast(context).showToast(
-          child: Text(
+          child: Text(=
         'Login Successful',
         style: TextStyle(fontSize: 25, color: Colors.green),
       ));*/
@@ -73,14 +74,23 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       );
     } else {
-      Fluttertoast.showToast(
+      final snackBar = SnackBar(
+          content: const Text('Oups! email ou mot de passe incorrect'),
+          action: SnackBarAction(
+            label: 'Fermer',
+            onPressed: () {
+              // Some code to undo the change.
+            },
+          ));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      /* Fluttertoast.showToast(
           msg: data,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-          fontSize: 16.0);
+          fontSize: 16.0);*/
     }
   }
 
@@ -93,12 +103,7 @@ class _SignInScreenState extends State<SignInScreen> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Stack(
-            children: [
-              BackWidget(
-                name: '',
-              ),
-              bodyWidget(context)
-            ],
+            children: [bodyWidget(context)],
           ),
         ),
       ),
@@ -107,21 +112,41 @@ class _SignInScreenState extends State<SignInScreen> {
 
   bodyWidget(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 100),
+      padding: const EdgeInsets.only(top: 0),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 80),
-            Center(
-              child: Text('Abidjan streaming'.toUpperCase(),
+            CachedNetworkImage(
+              height: 200,
+              imageUrl:
+                  'https://abidjanstreaming.com/admin/assets/files/landscape-desktop.764.430.jpg',
+              placeholder: (context, url) => const CircularProgressIndicator(
+                backgroundColor: Colors.black,
+                color: Colors.transparent,
+              ),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+              /* height: 100,
+                                                                                                  width: 160,
+                                                                                                  fit: BoxFit.contain,*/
+              fit: BoxFit.cover,
+            ),
+            /*   Center(
+              child: Image.asset(
+                'assets/images/playstore.png',
+                width: 100,
+              ),
+            ),*/
+            /*   Center(
+              child: Text(''.toUpperCase(),
                   style: TextStyle(
                       fontSize: Dimensions.extraLargeTextSize,
                       fontWeight: FontWeight.bold,
                       color: Colors.white)),
-            ),
+            ),*/
+
             textFieldWidget(context),
-            SizedBox(height: Dimensions.heightSize * 2),
+            SizedBox(height: 20),
             signInButtonWidget(context),
             SizedBox(height: Dimensions.heightSize * 2),
             notAMemberWidget(context)
@@ -142,6 +167,27 @@ class _SignInScreenState extends State<SignInScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                'Connectez vous pour acceder a plus de 200 films'.toUpperCase(),
+                style: TextStyle(
+                    fontSize: Dimensions.extraLargeTextSize,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+                textAlign: TextAlign.left,
+              ),
+              SizedBox(
+                height: Dimensions.heightSize,
+              ),
+              Text(
+                'Email',
+                style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: Dimensions.heightSize,
+              ),
               TextFormField(
                 style: CustomStyle.textStyle,
                 controller: emailController,
@@ -154,21 +200,32 @@ class _SignInScreenState extends State<SignInScreen> {
                   }
                 },
                 decoration: InputDecoration(
-                    hintText: Strings.demoEmail,
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                    labelStyle: CustomStyle.textStyle,
-                    filled: true,
-                    fillColor: Colors.transparent,
-                    hintStyle: CustomStyle.textStyle,
-                    focusedBorder: CustomStyle.focusBorder,
-                    enabledBorder: CustomStyle.focusErrorBorder,
-                    focusedErrorBorder: CustomStyle.focusErrorBorder,
-                    errorBorder: CustomStyle.focusErrorBorder,
-                    prefixIcon: Icon(
+                  hintText: Strings.demoEmail,
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                  labelStyle: CustomStyle.textStyle,
+                  filled: true,
+                  fillColor: Colors.transparent,
+                  hintStyle: CustomStyle.textStyle,
+                  focusedBorder: CustomStyle.focusBorder,
+                  enabledBorder: CustomStyle.focusErrorBorder,
+                  focusedErrorBorder: CustomStyle.focusErrorBorder,
+                  errorBorder: CustomStyle.focusErrorBorder,
+                  /*  prefixIcon: Icon(
                       Icons.mail,
                       color: Colors.white.withOpacity(0.6),
-                    )),
+                    )*/
+                ),
+              ),
+              SizedBox(
+                height: Dimensions.heightSize,
+              ),
+              Text(
+                'Mot de passe',
+                style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: Dimensions.heightSize,
@@ -195,10 +252,10 @@ class _SignInScreenState extends State<SignInScreen> {
                   filled: true,
                   fillColor: Colors.transparent,
                   hintStyle: CustomStyle.textStyle,
-                  prefixIcon: Icon(
+                  /*    prefixIcon: Icon(
                     Icons.lock,
                     color: Colors.white.withOpacity(0.6),
-                  ),
+                  ),*/
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
@@ -241,7 +298,7 @@ class _SignInScreenState extends State<SignInScreen> {
               Strings.signIn.toUpperCase(),
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: Dimensions.largeTextSize,
+                  fontSize: 17,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -249,7 +306,19 @@ class _SignInScreenState extends State<SignInScreen> {
         onTap: () {
           /*Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => DashboardScreen()));*/
-          login();
+          if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+            final snackBar = SnackBar(
+                content: const Text('Oups! veuillez saisir le champs manquant'),
+                action: SnackBarAction(
+                  label: 'Fermer',
+                  onPressed: () {
+                    // Some code to undo the change.
+                  },
+                ));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          } else {
+            login();
+          }
         },
       ),
     );
