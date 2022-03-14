@@ -1,5 +1,7 @@
 import 'package:abidjanstreaming/screen/auth/sign_in_screen.dart';
 import 'package:abidjanstreaming/screen/dashboard_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:abidjanstreaming/utils/colors.dart';
 import 'package:abidjanstreaming/utils/custom_style.dart';
@@ -10,6 +12,7 @@ import 'package:abidjanstreaming/widgets/bg_image_widget.dart';
 import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -26,9 +29,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Future register() async {
     var url = Uri.parse("http://abidjanstreaming.com/index/inscritget.php");
     var response = await http.post(url, body: {
-      "username": emailController.text,
-      "password": userController.text,
-      "email": confirmPasswordController.text
+      "email": emailController.text,
+      "username": userController.text,
+      "password": confirmPasswordController.text
     });
     var data = json.decode(response.body);
     if (data == "Error") {
@@ -50,12 +53,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
           textColor: Colors.white,
           fontSize: 16.0);
 
-      Navigator.push(
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('email', emailController.text);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => DashboardScreen(),
+        ),
+        (route) => false,
+      );
+
+      /* Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => DashboardScreen(),
         ),
-      );
+      );*/
     }
   }
 
@@ -71,12 +84,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Stack(
-            children: [
-              BackWidget(name: ''
-                  //Strings.createAnAccount,
-                  ),
-              bodyWidget(context)
-            ],
+            children: [bodyWidget(context)],
           ),
         ),
       ),
@@ -85,18 +93,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   bodyWidget(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 100),
+      padding: const EdgeInsets.only(top: 10),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 50),
-            Center(
-              child: Text('Abidjan streaming'.toUpperCase(),
-                  style: TextStyle(
-                      fontSize: Dimensions.extraLargeTextSize,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
+            CachedNetworkImage(
+              height: 200,
+              imageUrl:
+                  'https://abidjanstreaming.com/admin/assets/files/Machine gun preacher.jpg',
+              placeholder: (context, url) => const CircularProgressIndicator(
+                backgroundColor: Colors.black,
+                color: Colors.transparent,
+              ),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+              /* height: 100,
+                                                                                                  width: 160,
+                                                                                                  fit: BoxFit.contain,*/
+              fit: BoxFit.cover,
             ),
             textFieldWidget(context),
             SizedBox(height: Dimensions.heightSize * 2),
@@ -122,6 +136,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                'Nom d utilisateur',
+                style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: Dimensions.heightSize,
+              ),
               TextFormField(
                 style: CustomStyle.textStyle,
                 controller: userController,
@@ -134,21 +158,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   }
                 },
                 decoration: InputDecoration(
-                    hintText: Strings.Nomuser,
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                    labelStyle: CustomStyle.textStyle,
-                    filled: true,
-                    fillColor: Colors.transparent,
-                    hintStyle: CustomStyle.textStyle,
-                    focusedBorder: CustomStyle.focusBorder,
-                    enabledBorder: CustomStyle.focusErrorBorder,
-                    focusedErrorBorder: CustomStyle.focusErrorBorder,
-                    errorBorder: CustomStyle.focusErrorBorder,
-                    prefixIcon: Icon(
-                      Icons.mail,
-                      color: Colors.white.withOpacity(0.6),
-                    )),
+                  hintText: 'jean seri',
+                  //Strings.Nomuser,
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                  labelStyle: CustomStyle.textStyle,
+                  filled: true,
+                  fillColor: Colors.transparent,
+                  hintStyle: CustomStyle.textStyle,
+                  focusedBorder: CustomStyle.focusBorder,
+                  enabledBorder: CustomStyle.focusErrorBorder,
+                  focusedErrorBorder: CustomStyle.focusErrorBorder,
+                  errorBorder: CustomStyle.focusErrorBorder,
+                ),
+              ),
+              SizedBox(
+                height: Dimensions.heightSize,
+              ),
+              Text(
+                'Email',
+                style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: Dimensions.heightSize,
@@ -165,23 +197,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   }
                 },
                 decoration: InputDecoration(
-                    hintText: Strings.email,
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                    labelStyle: CustomStyle.textStyle,
-                    filled: true,
-                    fillColor: Colors.transparent,
-                    hintStyle: CustomStyle.textStyle,
-                    focusedBorder: CustomStyle.focusBorder,
-                    enabledBorder: CustomStyle.focusErrorBorder,
-                    focusedErrorBorder: CustomStyle.focusErrorBorder,
-                    errorBorder: CustomStyle.focusErrorBorder,
-                    prefixIcon: Icon(
-                      Icons.mail,
-                      color: Colors.white.withOpacity(0.6),
-                    )),
+                  hintText: 'jeanseri118@gmail.com',
+                  // Strings.email,
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                  labelStyle: CustomStyle.textStyle,
+                  filled: true,
+                  fillColor: Colors.transparent,
+                  hintStyle: CustomStyle.textStyle,
+                  focusedBorder: CustomStyle.focusBorder,
+                  enabledBorder: CustomStyle.focusErrorBorder,
+                  focusedErrorBorder: CustomStyle.focusErrorBorder,
+                  errorBorder: CustomStyle.focusErrorBorder,
+                ),
               ),
               SizedBox(height: Dimensions.heightSize),
+              Text(
+                'Mot de passe',
+                style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: Dimensions.heightSize,
+              ),
               TextFormField(
                 style: CustomStyle.textStyle,
                 controller: confirmPasswordController,
@@ -193,7 +233,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   }
                 },
                 decoration: InputDecoration(
-                  hintText: Strings.rePassword,
+                  hintText: '***********************',
+                  //Strings.rePassword,
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                   labelStyle: CustomStyle.textStyle,
@@ -203,10 +244,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   errorBorder: CustomStyle.focusErrorBorder,
                   filled: true,
                   fillColor: Colors.transparent,
-                  prefixIcon: Icon(
-                    Icons.lock,
-                    color: Colors.white.withOpacity(0.6),
-                  ),
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {

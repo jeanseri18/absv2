@@ -5,6 +5,7 @@ class CustomStyle {
   static var textStyle = TextStyle(
       color: Colors.white,
       fontSize: Dimensions.defaultTextSize
+      
   );
 
   static var hintTextStyle = TextStyle(
@@ -22,15 +23,15 @@ class CustomStyle {
       fontSize: Dimensions.largeTextSize
   );
 
-  static var focusBorder = UnderlineInputBorder(
+  static var focusBorder = OutlineInputBorder(
     borderSide: BorderSide(color: Colors.white),
   );
 
-  static var focusErrorBorder = UnderlineInputBorder(
+  static var focusErrorBorder = OutlineInputBorder(
     borderSide: BorderSide(color: Colors.white),
   );
 
-  static var searchBox = UnderlineInputBorder(
+  static var searchBox = OutlineInputBorder(
     borderSide: BorderSide(color: Colors.black),
   );
 }

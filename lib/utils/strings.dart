@@ -13,8 +13,8 @@ class Strings {
   //intro screen
   static String startByCreatingAccount = 'Commencer par creer un compte';
   static String introSubTitle = 'Votre plateforme de streaming ivoirienne.';
-  static String signIn = 'Connexion';
-  static String createAnAccount = 'S inscrir';
+  static String signIn = 'Se connecter';
+  static String createAnAccount = 'Creez un compte';
   static String createAnAccount1 = 'Se connecter';
   //sign in screen
   static String signInAccount = 'Sign In Account';
@@ -163,5 +163,5 @@ class Strings {
   static String myProfile = 'Mon profile';
   static String emailAddress = 'Email ';
   static String updateProfile = 'Modifier mon Profile';
-  static String iduser ='';
+  static String iduser = '';
 }

@@ -1,8 +1,8 @@
+import 'package:abidjanstreaming/screen/onboard/intro_screen.dart';
 import 'package:abidjanstreaming/screen/onboard/on_board_screen.dart';
 import 'package:abidjanstreaming/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(seconds: 3),
         () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => OnBoardScreen())));
+            MaterialPageRoute(builder: (context) => IntroScreen())));
   }
 
   @override
